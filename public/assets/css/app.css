@@ -1,0 +1,54 @@
+@media screen and (min-width: 992px) {
+    .navbar {
+      padding: 0;
+    }
+    .navbar .navbar-nav .nav-link {
+      padding: 1em 0;
+    }
+    .navbar .navbar-nav .nav-item {
+      margin: 0 0.5em;
+    }
+  }
+  
+  .navbar .navbar-nav .nav-item {
+    position: relative;
+  }
+  .navbar .navbar-nav .nav-item::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    content: "";
+    background-color: white;
+    width: 0%;
+    height: 4px;
+    transition: all 0.3s;
+  }
+
+  .navbar .navbar-nav .nav-item.active::after {
+    width: 100%;
+}
+  
+  .navbar .navbar-nav .nav-item:hover::after {
+    width: 100%;
+  }
+
+  /* Apply 'position: absolute' only on mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+    .mobileusername {
+        position: absolute !important;
+        top: 1.5em;
+        right: 3vw;
+    }
+}
+
+/* Reset 'position' to its default value for larger screens */
+@media (min-width: 769px) {
+    .webusername {
+        position: relative; /* or any other appropriate 'position' value for larger screens */
+        /* other non-mobile styles */
+    }
+}
+
+  
