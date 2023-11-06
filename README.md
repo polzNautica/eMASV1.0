@@ -1,66 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## SSE4301 (About our project)
+Introduction:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+We are excited to introduce our project aimed at developing an Appointment System for our university, University Putra Malaysia. The primary goal of this endeavor is to provide a seamless and efficient solution that simplifies the process of scheduling appointments, making it more convenient for students, faculty, and staff. 
 
-## About Laravel
+Expected Outcome:
+The envisioned Appointment System will offer several benefits to our university community:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. Streamlined Scheduling: The system will provide a user-friendly interface for scheduling appointments with various university services, such as academic advisors, healthcare centers, career counseling, and more.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2. Accessibility and Convenience: Students and staff will be able to book appointments online from anywhere, eliminating the need for in-person scheduling or phone calls. This enhances accessibility and convenience.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+3. Time and Resource Efficiency: The system will optimize resource allocation and reduce scheduling conflicts, saving both time and administrative resources.
 
-## Learning Laravel
+4. Automated Notifications: Users will receive automatic appointment confirmations and reminders, reducing no-show rates and improving overall efficiency.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+5. Reporting and Analytics: The system will offer insights through analytics, allowing administrators to monitor the appointment scheduling process and make data-driven improvements.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+6. Improved Student Experience: A well-functioning appointment system can lead to higher student satisfaction and success by ensuring they have access to the support and services they need.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Suggested Features to Include:
+1. User-friendly Dashboard: Implement an intuitive dashboard for students, faculty, and staff to easily view and manage their appointments.
 
-## Laravel Sponsors
+2. Real-time Availability: Display real-time availability of advisors, healthcare professionals, and other service providers.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+3. Calendar Integration: Allow users to sync their appointments with their personal calendars.
 
-### Premium Partners
+4. Mobile Accessibility: Ensure the system is responsive and accessible on mobile devices for scheduling on the go.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+5. Customizable Notifications: Allow users to choose how they receive appointment notifications (email, SMS, or app notifications).
 
-## Contributing
+6. Reporting and Analytics: Provide administrators with tools to generate reports and analyze data to improve resource allocation.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. Secure and Private: Prioritize data security and user privacy by implementing appropriate security measures and data protection policies.
 
-## Code of Conduct
+8. Multi-Language Support: If applicable, consider offering support for multiple languages to accommodate a diverse user base.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+9. Scalability: Build the system with scalability in mind, so it can grow with the university's needs.
 
-## Security Vulnerabilities
+10. Integration: Ensure the system can integrate with existing university databases, systems, and services for a seamless experience.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+We believe that this Appointment System will significantly enhance the scheduling process at [University Name], and we are committed to delivering a reliable, user-friendly, and secure solution that benefits the entire university community. We look forward to the development and implementation of this system and the positive impact it will have on our university's operations and the overall student experience.
 
-## License
+## Development
+The system is still under a lot of development. Slowly but surely it can produce a good results at the end.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- npm v10.1.0
+- laravel v^8.0
+- composer v2.6.5
+- php v8.1.10
+
+## Team Members
+- Yeh Min
+- Low Li Ci
+- Mohammad Zakariya Minsuri
+- Peter Wolfsteiner
+- Saifullah Suhaimi
