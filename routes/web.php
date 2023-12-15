@@ -48,4 +48,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/password/reset', 'Auth\PasswordResetController@showPasswordResetForm')->name('password.reset');
     Route::post('/password/email', 'Auth\PasswordResetController@sendPasswordResetLinkEmail')->name('password.email');
 
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('profile', 'ProfileController@index')->name('profile.index');
+        Route::put('profile/update', 'ProfileController@update')->name('profile.update');
+    });
+
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('appointments/create', 'AppointmentController@showForm')->name('appointments.create');
+        Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
+        });
+
+
 });

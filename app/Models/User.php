@@ -48,4 +48,32 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+//     protected static function boot()
+// {
+//     parent::boot();
+
+//     static::creating(function ($user) {
+//         // Check if the userdetails relationship exists
+//         if ($user->userdetails) {
+//             $user->userdetails->user_id = $user->id;
+//             $user->userdetails->save();
+//         }
+//     });
+    
+
+//     static::updating(function ($user) {
+//         if ($user->userdetails) {
+//             // Check if the user has associated userdetails
+//             $user->userdetails->update(['user_id' => $user->id]);
+//         }
+//     });
+    
+// }
+
+public function userdetails()
+{
+    return $this->hasOne(UserDetail::class);
+}
+
 }

@@ -1,4 +1,17 @@
 <header class="p-3 text-white" style="background-color:rgba(201,35,75,1); box-shadow: 0px 0px 10px black;">
+  <div class="container mb-2 mobiledisplaynone">
+    <div class="d-flex mx-auto" style="justify-content: flex-end">
+      <div class="px-5">
+        <i class="fa-solid fa-phone-volume px-2"></i>General line: 03-97697304
+      </div>
+      <div class="px-5">
+        <i class="fa-solid fa-clock px-2"></i>Monday to Friday (8 A.M to 4:30 P.M.)
+      </div>
+      <div class="" style="padding-left:0.5rem">
+        Closed on weekends and public holidays
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start col-12">
       <div class="col-lg-2 d-none d-lg-block">
@@ -15,15 +28,15 @@
       <ul class="navbar-nav nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li class="nav-item @yield('activeHome')"><a href="/" class="nav-link px-2 text-white">Home</a></li>
         @auth
-          <li class="nav-item @yield('activeNewAppointment')"><a href="/" class="nav-link px-2 text-white">Make an Appointment</a></li>
-          <li class="nav-item @yield('activeUserAppointment')"><a href="/" class="nav-link px-2 text-white">Your Appointment</a></li>
+          <li class="nav-item @yield('activeMakeApt')"><a href="/appointments/create" class="nav-link px-2 text-white">Make an Appointment</a></li>
+          <li class="nav-item @yield('activeUserApt')"><a href="/appointments/userapt" class="nav-link px-2 text-white">Your Appointment</a></li>
         @endauth
 
         @guest
-        <li class="nav-item @yield('activeFeature')"><a href="#" class="nav-link px-2 text-white">Features</a></li>
-        <li class="nav-item @yield('activeContact')"><a href="#" class="nav-link px-2 text-white">Contact US</a></li>
+        <li class="nav-item @yield('activeFeature')"><a href="#" class="nav-link px-2 text-white">Specialist</a></li>
+        <li class="nav-item @yield('activeContact')"><a href="#" class="nav-link px-2 text-white">Facilities and Services</a></li>
         <li class="nav-item @yield('activeFaq')"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-        <li class="nav-item @yield('activeAbout')"><a href="about" class="nav-link px-2 text-white">About Us</a></li>
+        <li class="nav-item @yield('activeAbout')"><a href="about" class="nav-link px-2 text-white">About</a></li>
         @endguest
       </ul>
     </div>
@@ -35,14 +48,14 @@
       </form> --}}
 
       @auth
-        {{auth()->user()->name}}
+        {{-- {{auth()->user()->name}} --}}
         <div class="dropdown text-end mobileusername">
           <button class="btn btn-outline-light dropdown-toggle"
           type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             {{Auth::user()->username}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="/profile">Profile</a></li>
             <li><a class="dropdown-item" href="#">Some Action</a></li>
             <li><a class="dropdown-item" href="#">Another Action</a></li>
             <li><a class="dropdown-item" href="{{ route('logout.perform') }}">Logout</a></li>

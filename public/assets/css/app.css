@@ -41,6 +41,15 @@
         top: 1.5em;
         right: 3vw;
     }
+    .mobiledisplaynone {
+      display: none !important;
+    }
+    .mobilewidth100 {
+      max-width: 100% !important;
+    }
+    .mobilerowtocol {
+      flex-direction: column !important;
+    }
 }
 
 /* Reset 'position' to its default value for larger screens */
