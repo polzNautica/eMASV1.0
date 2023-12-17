@@ -28,8 +28,8 @@
       <ul class="navbar-nav nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li class="nav-item @yield('activeHome')"><a href="/" class="nav-link px-2 text-white">Home</a></li>
         @auth
-          <li class="nav-item @yield('activeMakeApt')"><a href="/appointments/create" class="nav-link px-2 text-white">Make an Appointment</a></li>
-          <li class="nav-item @yield('activeUserApt')"><a href="/appointments/userapt" class="nav-link px-2 text-white">Your Appointment</a></li>
+          <li class="nav-item @yield('activeMakeApt')"><a href="/appointments/index" class="nav-link px-2 text-white">Make an Appointment</a></li>
+          {{-- <li class="nav-item @yield('activeUserApt')"><a href="/appointments/userapt" class="nav-link px-2 text-white">Your Appointment</a></li> --}}
         @endauth
 
         @guest

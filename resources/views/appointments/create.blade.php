@@ -22,8 +22,9 @@ active
                                 </div>
                             @endif --}}
         
-                            <form method="post" action="{{ route('appointments.store') }}">
+                            <form method="post" action="{{ route('appointments.store',['id' => $userDetails->user_id]) }}">
                                 @csrf
+                                <input type="hidden" name="form_id" value="{{ $form_id }}">
                                 <div class="px-md-5 px-2">
                                     <div class="form-group d-none">
                                         <label for="username">Username</label>
@@ -57,7 +58,7 @@ active
                             </form>
                             @if(strlen($userDetails->full_name) > 0 && strlen($userDetails->email) > 0 && strlen($userDetails->ic) > 0 && strlen($userDetails->phone_number) > 0)
                                 <div class="d-flex px-md-5" style="justify-content: flex-end"> 
-                                    <button type="submit" class="btn btn-success col-md-2 col-6">Next</button>
+                                    <a href="{{ route('appointments.sicknessForm', ['form_id' => $form_id]) }}" class="btn btn-success col-md-2 col-6">Next</a>
                                 </div>
                             @endif
 

@@ -50,6 +50,7 @@
     .mobilerowtocol {
       flex-direction: column !important;
     }
+    
 }
 
 /* Reset 'position' to its default value for larger screens */
@@ -57,6 +58,9 @@
     .webusername {
         position: relative; /* or any other appropriate 'position' value for larger screens */
         /* other non-mobile styles */
+    }
+    .webbutton {
+        min-width: 11vw !important;
     }
 }
 

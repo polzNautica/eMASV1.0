@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-protected $fillable = [
-        'full_name',
-        'phone_number',
-        'email',
-        'ic',
-        'user_id',
-    ];
+    protected $fillable = [
+        'user_id', 
+        'sickness', 
+        'seriousness'];
+
     // Define the relationship with UserDetail
-    public function userDetail()
+    public function userDetails()
     {
-        return $this->belongsTo(UserDetail::class);
+        return $this->belongsTo(UserDetail::class, 'user_id');
+    }
+
+    public function time_slots()
+    {
+        return $this->hasMany(TimeSlot::class, 'form_id');
     }
 }

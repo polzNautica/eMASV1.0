@@ -54,8 +54,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     });
 
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('appointments/create', 'AppointmentController@showForm')->name('appointments.create');
-        Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
+        Route::get('appointments/index', 'AppointmentController@index')->name('appointments.index');
+        Route::get('appointments/create/{id}', 'AppointmentController@showForm')->name('appointments.create');
+        Route::post('appointments/store/{id}', 'AppointmentController@store')->name('appointments.store');
+        Route::get('appointments/sickness/{form_id}', 'AppointmentController@sicknessForm')->name('appointments.sicknessForm');
+        Route::post('appointments/sicknessStore/{form_id}', 'AppointmentController@sicknessStore')->name('appointments.sicknessStore');
+        Route::get('appointments/slot/{form_id}', 'AppointmentController@slotForm')->name('appointments.slotForm');
+        Route::post('appointments/slotStore/{form_id}', 'AppointmentController@slotStore')->name('appointments.slotStore');
+        Route::delete('/appointments/cancel-slot/{id}', 'AppointmentController@cancelSlot')->name('appointments.cancelSlot');
         });
 
 
