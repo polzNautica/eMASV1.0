@@ -1,0 +1,4 @@
+
+{-- php command to run schedule --}
+* * * * * cd /emas && php artisan schedule:run >> /dev/null 2>&1
+

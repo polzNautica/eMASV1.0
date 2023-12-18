@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Appointment;
 use App\Models\TimeSlot;
+use App\Models\AppointmentRecord;
+
 
 class AppointmentController extends Controller
 {
@@ -16,13 +18,14 @@ class AppointmentController extends Controller
             $users = auth()->user();
             $userDetails = UserDetail::where('user_id', $users->id)->first();
             $appointments = Appointment::where('user_id', $userDetails->id)->first();
+            $records = AppointmentRecord::where('user_id', $userDetails->id)->get();
             if ($appointments) {
                 $time_slots = TimeSlot::where('form_id', $appointments->id)->get();
             } else {
                 // Handle the case where $appointments is null, e.g., set $time_slots to an empty array
                 $time_slots = [];
             }
-            return view('appointments.index' , compact('users', 'userDetails', 'appointments', 'time_slots'));
+            return view('appointments.index' , compact('users', 'userDetails', 'appointments', 'time_slots', 'records'));
         }
 
     public function showForm()
@@ -137,6 +140,11 @@ class AppointmentController extends Controller
 
         public function slotStore(Request $request)
 {
+    if ($request->hasFile('profile_picture')) {
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+        $userDetails->update(['profile_picture' => $path]);
+    }
+    
     $form_id = $request->input('form_id');
     $aptDate = $request->input('aptDate');
     $selected_slot = $request->input('selected_slot');

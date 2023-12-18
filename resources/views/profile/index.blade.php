@@ -8,10 +8,22 @@
         @auth
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="card mx-md-5">
+                <div class="d-flex justify-content-center">
+                    <div class="card mx-md-5 webwidth70">
                         <div class="card-header" style="background-color: rgba(201,35,75,1)">
                         <h4 class="mb-0 py-1 text-white">User Information</h4></div>
+                        <div class="mb-3 row d-flex justify-content-center mt-3">
+                            {{-- <label for="profile_picture" class="form-label col-md-2">Profile Picture</label> --}}
+                            <input type="file" class="form-control col" id="profile_picture" name="profile_picture" style="display: none;">
+                            <label for="profile_picture" class="profile-picture-label col-md-2">
+                                @if(isset($userDetails->profile_picture) && Storage::disk('public')->exists($userDetails->profile_picture))
+                                    <img src="{{ asset('storage/' . $userDetails->profile_picture) }}" alt="Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;">
+                                @else
+                                    <!-- Default or placeholder profile picture -->
+                                    <img src="assets/images/emas_profile_picture.png" alt="Default Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;">
+                                @endif
+                            </label>
+                        </div>
                         <div class="card-body px-md-5 px-4">
                             <form method="POST" action="{{ route('profile.update') }}">
                                 @csrf
@@ -80,7 +92,7 @@
                                     <input type="email" class="form-control col" id="email" name="email" value="{{ auth()->user()->email }}" readonly>
                                 </div>
 
-                                <div class="d-flex px-md-5" style="justify-content: flex-end"> 
+                                <div class="d-flex" style="justify-content: flex-end"> 
                                     <button type="submit" class="btn btn-warning">Update Profile</button>
                                 </div>
                             </form>
@@ -91,4 +103,20 @@
         </div>
         @endauth
     </div>
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var profilePictureLabel = document.querySelector('.profile-picture-label');
+        var profilePictureInput = document.getElementById('profile_picture');
+
+        if (profilePictureLabel && profilePictureInput) {
+            profilePictureLabel.addEventListener('click', function () {
+                profilePictureInput.click();
+            });
+        }
+    });
+</script>
+
+@endsection
 @endsection

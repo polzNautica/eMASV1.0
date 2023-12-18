@@ -34,7 +34,7 @@
                                 @if(isset($availableSlots))
                                     <div class="mt-3 d-flex" style="justify-content: center; flex-direction:column; align-items:center">
                                         <h5>Available Slots</h5>
-                                        <table class="table text-center" style="width:50%">
+                                        <table class="table text-center webwidth50">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Slot</th>
