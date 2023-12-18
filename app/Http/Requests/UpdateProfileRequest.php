@@ -32,6 +32,7 @@ class UpdateProfileRequest extends FormRequest
             'nullable',
             'string',
             'min:8',
+            'regex:/^[0-9]+$/',
             function ($attribute, $value, $fail) use ($userId) {
                 // Check uniqueness only if the value is provided
                 if (!empty($value)) {
@@ -51,6 +52,7 @@ class UpdateProfileRequest extends FormRequest
             'string',
             'min:12',
             'max:12',
+            'regex:/^[0-9]+$/',
             function ($attribute, $value, $fail) use ($userId) {
                 // Check uniqueness only if the value is provided
                 if (!empty($value)) {

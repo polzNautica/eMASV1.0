@@ -50,8 +50,8 @@ active
 
                                     <div class="form-group row mb-3">
                                         <label class="col-md-2 mb-2" for="email">Specify</label>
-                                        <textarea type="text" class="form-control col" id="specification" name="specification" value="{{ old('specification', $users->specification ?? '') }}" rows="5"></textarea>
-                                    </div>
+                                        <textarea class="form-control col" id="specification" name="specification" rows="5">{{ old('specification', $appointments->specification ?? '') }}</textarea>
+                                    </div>                                    
         
                                 <div class="row">
                                     <div class="col-6" style="justify-content: flex-start"> 

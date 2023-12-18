@@ -9,7 +9,9 @@ class Appointment extends Model
     protected $fillable = [
         'user_id', 
         'sickness', 
-        'seriousness'];
+        'seriousness',
+        'specification',
+    ];
 
     // Define the relationship with UserDetail
     public function userDetails()

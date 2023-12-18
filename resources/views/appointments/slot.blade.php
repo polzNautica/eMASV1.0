@@ -39,7 +39,7 @@
                                                 <tr>
                                                     <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Slot</th>
                                                     <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Select</th>
-                                                    <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Status</th>
+                                                    {{-- <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Status</th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>                                            
@@ -49,10 +49,14 @@
                                                     <td>
                                                         @php
                                                             $selectedSlots = $all_slots->pluck('selected_slot')->toArray();
+                                                            $slotsID = $all_slots->where('form_id', $form_id)->pluck('selected_slot')->toArray();
+                                                            // $slotsID = $all_slots->where('form_id',$appointments->id)->pluck('form_id');
                                                         @endphp
-                                                        @if (in_array($slot, $selectedSlots))
+                                                        @if (in_array($slot, $slotsID))
+                                                            <button class="btn btn-outline-primary" disabled>Selected</button>
+                                                        @elseif (in_array($slot, $selectedSlots))
                                                             <button class="btn btn-outline-danger" disabled>Unavailable</button>
-                                                            @elseif ($all_slots->whereNotNull('selected_slot')->count() > 0)
+                                                        @elseif ($all_slots->whereNotNull('selected_slot')->where('form_id',$appointments->id)->count() > 0 )
                                                             <button class="btn btn-outline-secondary disabled">Available</button>
                                                         @else
                                                             <form method="POST" action="{{ route('appointments.slotStore', ['form_id' => $form_id, 'aptDate' => $aptDate]) }}">
@@ -65,7 +69,7 @@
                                                             </form>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @php
                                                             $selectedSlots = $all_slots->where('form_id', $form_id)->pluck('selected_slot')->toArray();
                                                         @endphp
@@ -78,9 +82,9 @@
                                                                 </form>
                                                             @endforeach
                                                         @else
-                                                            <!-- Display a message or an empty cell -->
+
                                                         @endif
-                                                    </td>                                                    
+                                                    </td>                                                     --}}
                                                 </tr>
                                             @endforeach
                                                                                                                                

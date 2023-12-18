@@ -24,6 +24,7 @@ active
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Slot</th>
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Appointment Date</th>
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Applied Date</th>
+                        <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>                                       
@@ -58,8 +59,15 @@ active
                             <td>{{$time_slot->appointments->sickness}}</td>
                             <td>{{$seriousness}}</td>
                             <td>{{ explode('.', $time_slot->selected_slot)[1] ?? '' }}</td>
-                            <td>{{\Carbon\Carbon::parse($time_slot->aptDate)->format('Y-m-d') }}</td>
+                            <td>{{\Carbon\Carbon::parse($time_slot->selected_date)->format('Y-m-d') }}</td>
                             <td>{{\Carbon\Carbon::parse($time_slot->created_at)->format('Y-m-d') }}</td>
+                            <td>
+                                <form method="POST" action="{{ route('appointments.cancelSlot', ['id' => $time_slot->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" style=""><i class="fa-solid fa-xmark"></i></button>
+                                </form>
+                            </td>
                         </tr>
                     @empty
                         <tr>

@@ -16,8 +16,12 @@ class AppointmentController extends Controller
             $users = auth()->user();
             $userDetails = UserDetail::where('user_id', $users->id)->first();
             $appointments = Appointment::where('user_id', $userDetails->id)->first();
-            $time_slots = TimeSlot::where('form_id', $appointments->id)->get();
-
+            if ($appointments) {
+                $time_slots = TimeSlot::where('form_id', $appointments->id)->get();
+            } else {
+                // Handle the case where $appointments is null, e.g., set $time_slots to an empty array
+                $time_slots = [];
+            }
             return view('appointments.index' , compact('users', 'userDetails', 'appointments', 'time_slots'));
         }
 
@@ -54,7 +58,7 @@ class AppointmentController extends Controller
             ]);
 
             $form_id = Appointment::updateOrCreate(
-                ['user_id' => $users->id],
+                ['user_id' => $userDetails->id],
             );
 
             $id = $userDetails->user_id;
@@ -123,7 +127,7 @@ class AppointmentController extends Controller
                 $time_slots->save();
             }
 
-            $all_slots = TimeSlot::where('form_id', $appointments->id)->get();
+            $all_slots = TimeSlot::where('aptDate', $time_slots->aptDate)->get();
             $form_id = $time_slots->form_id;
 
             $availableSlots = $this->getAvailableSlots($aptDate, $all_slots);
@@ -210,22 +214,25 @@ class AppointmentController extends Controller
         $userDetails = UserDetail::where('user_id', auth()->user()->id)->first();
         $appointments = Appointment::where('user_id', $userDetails->id)->first();
 
-        // Check if the slot belongs to the authenticated user, add more validation if needed
+        $sickness_id = $appointments->id;
+        $sickness = Appointment::findOrFail($sickness_id);
+
         if ($slot->form_id == $appointments->id) {
-            // Check if there's only one record with the specified form_id
-            $recordCount = TimeSlot::where('form_id', $slot->form_id)->count();
-        
-            if ($recordCount == 1) {
-                // Update the slot to make it available
-                $slot->update([
-                    'is_available' => true,
-                    'selected_slot' => null,
-                    'selected_date' => null,
-                ]);
-            } else {
-                // Delete the slot record
-                $slot->delete();
-            }
+            // $recordCount = TimeSlot::where('form_id', $slot->form_id)->count();
+            
+            $slot->delete();
+            $sickness->delete();
+            // if ($recordCount == 1) {
+            //     // Update the slot to make it available
+            //     $slot->update([
+            //         'is_available' => true,
+            //         'selected_slot' => null,
+            //         'selected_date' => null,
+            //     ]);
+            // } else {
+            //     // Delete the slot record
+            //     $slot->delete();
+            // }
 
             return redirect()->back()->with('success', 'Slot Canceled.');
         }
