@@ -45,15 +45,16 @@ use Illuminate\Support\Facades\Storage;
                     'email' => $user->email,
                 ]
             );
-
+            
             return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
         }
 
         protected function storeProfilePicture(Request $request)
         {
+            $user = auth()->user();
+            $userDetail = $user->userDetails;
+
             if ($request->hasFile('profile_picture')) {
-                $user = auth()->user();
-                $userDetail = $user->userDetails;
         
                 // Get the old profile picture path
                 $oldProfilePicturePath = $userDetail ? $userDetail->profile_picture : null;
@@ -69,7 +70,7 @@ use Illuminate\Support\Facades\Storage;
                 return $profilePicturePath;
             }
         
-            return null; // Handle case where no file is uploaded
+            return $userDetail->profile_picture; // Handle case where no file is uploaded
         }
         
 

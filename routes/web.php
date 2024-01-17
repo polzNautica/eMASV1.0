@@ -21,7 +21,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/', 'HomeController@index')->name('home.index');
     Route::get('/about', 'HomeController@about')->name('home.about');
 
-
+    Route::get('/password/reset', 'Auth\PasswordResetController@showPasswordResetForm')->name('password.reset');
+    Route::post('/password/email', 'Auth\PasswordResetController@sendPasswordResetLinkEmail')->name('password.email');
+    Route::get('/password/reset/{token}/{email}', 'Auth\PasswordResetController@showResetForm')->name('password.reset.token');
+    Route::post('/password/reset', 'Auth\PasswordResetController@reset')->name('password.update');
+    
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes
@@ -43,11 +47,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     });
-
-
-    Route::get('/password/reset', 'Auth\PasswordResetController@showPasswordResetForm')->name('password.reset');
-    Route::post('/password/email', 'Auth\PasswordResetController@sendPasswordResetLinkEmail')->name('password.email');
-
+        
     Route::group(['middleware' => ['auth']], function () {
         Route::get('profile', 'ProfileController@index')->name('profile.index');
         Route::put('profile/update', 'ProfileController@update')->name('profile.update');
@@ -62,6 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('appointments/slot/{form_id}', 'AppointmentController@slotForm')->name('appointments.slotForm');
         Route::post('appointments/slotStore/{form_id}', 'AppointmentController@slotStore')->name('appointments.slotStore');
         Route::delete('/appointments/cancel-slot/{id}', 'AppointmentController@cancelSlot')->name('appointments.cancelSlot');
+        Route::delete('/appointments/edit-slot/{id}', 'AppointmentController@editSlot')->name('appointments.editSlot');
         });
 
 

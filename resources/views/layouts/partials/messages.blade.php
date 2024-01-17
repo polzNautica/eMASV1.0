@@ -8,6 +8,14 @@
     </div>
 @endif
 
+@if (Session::has('error'))
+    <div class="alert alert-danger" role="alert">
+        <ul class="list-unstyled mb-0">
+            <li><i class="fa-solid fa-xmark">&nbsp;&nbsp;</i>{{ Session::get('error') }}</li>
+        </ul>
+    </div>
+@endif
+
 @if(Session::get('success', false))
     <?php $data = Session::get('success'); ?>
     @if (is_array($data))

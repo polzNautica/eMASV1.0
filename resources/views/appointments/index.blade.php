@@ -8,9 +8,15 @@ active
 @include('layouts.partials.messages')
     <div class="bg-light p-md-5 rounded">
         @auth
+        @if($appointments)
+        <div class="mb-3 d-flex justify-content-end">
+            <a href="{{ route('appointments.create',['id' => $userDetails->id]) }}" class="btn btn-warning">Edit Your Appointment</a>
+        </div>
+        @else
         <div class="mb-3 d-flex justify-content-end">
             <a href="{{ route('appointments.create',['id' => $userDetails->id]) }}" class="btn btn-warning">Apply New Appointment</a>
         </div>
+        @endif
         <h1 class="mb-3">Current Appointment Records</h1>
         <div class="container">
             <div style="overflow-x: auto; max-width: 100%;"> <!-- Adjust max-width as needed -->
@@ -25,7 +31,7 @@ active
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Slot</th>
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Appointment Date</th>
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Applied Date</th>
-                        <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Status</th>
+                        <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>                                       

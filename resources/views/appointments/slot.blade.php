@@ -39,13 +39,14 @@
                                                 <tr>
                                                     <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Slot</th>
                                                     <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Select</th>
-                                                    {{-- <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Status</th> --}}
+                                                    <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>                                            
                                                 @foreach($availableSlots as $slot)
                                                 <tr>
-                                                    <td>{{ $slot }}</td>
+                                                    {{-- <td>{{ $slot }}</td> --}}
+                                                    <td>{{ explode('.', $slot)[1] ?? '' }}</td>
                                                     <td>
                                                         @php
                                                             $selectedSlots = $all_slots->pluck('selected_slot')->toArray();
@@ -69,13 +70,13 @@
                                                             </form>
                                                         @endif
                                                     </td>
-                                                    {{-- <td>
+                                                    <td>
                                                         @php
                                                             $selectedSlots = $all_slots->where('form_id', $form_id)->pluck('selected_slot')->toArray();
                                                         @endphp
                                                         @if (in_array($slot, $selectedSlots))
                                                             @foreach ($all_slots->where('form_id', $form_id)->where('selected_slot', $slot) as $selectedSlot)
-                                                                <form method="POST" action="{{ route('appointments.cancelSlot', ['id' => $selectedSlot->id]) }}">
+                                                                <form method="POST" action="{{ route('appointments.editSlot', ['id' => $selectedSlot->id]) }}">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn btn-danger">Cancel</button>
@@ -84,7 +85,7 @@
                                                         @else
 
                                                         @endif
-                                                    </td>                                                     --}}
+                                                    </td>                                                    
                                                 </tr>
                                             @endforeach
                                                                                                                                
@@ -98,7 +99,10 @@
                                         <a href="{{route('appointments.sicknessForm',['form_id' => $time_slots->form_id])}}"
                                            class="btn btn-secondary col-md-2 col-6 mb-3 webbutton" style="">Back</a>
                                     </div>
-                                    @if($all_slots->whereNotNull('selected_slot')->isNotEmpty())
+                                    @php
+                                        $check_slot = $all_slots->where('form_id', $appointments->id);
+                                    @endphp
+                                    @if($check_slot->whereNotNull('selected_slot')->isNotEmpty())
                                         <div class="col-6 d-flex" style="justify-content: flex-end"> 
                                             <a href="{{ route('appointments.index') }}" 
                                                 class="btn btn-success col-md-2 col-6 mb-3 webbutton" style="">Next</a>

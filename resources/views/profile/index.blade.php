@@ -22,7 +22,6 @@
                                 @if(isset($userDetails->profile_picture) && Storage::disk('public')->exists($userDetails->profile_picture))
                                     <img src="{{ asset('storage/' . $userDetails->profile_picture) }}" alt="Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;" id="profilePicturePreview">
                                 @else
-                                    <!-- Default or placeholder profile picture -->
                                     <img src="assets/images/emas_profile_picture.png" alt="Default Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;" id="profilePicturePreview">
                                 @endif
                             </label>
@@ -101,8 +100,9 @@
         </div>
         @endauth
     </div>
+@endsection
 
-    @section('scripts')
+@section('scripts')
     <script>
         function previewProfilePicture(input) {
             var preview = document.getElementById('profilePicturePreview');
@@ -132,5 +132,4 @@
             }
         });
     </script>
-    @endsection
 @endsection

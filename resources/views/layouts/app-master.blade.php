@@ -51,9 +51,13 @@
     @yield('scripts')
     <script>
       window.addEventListener("load", function () {
-        // Hide the loading overlay when the page is fully loaded
-        document.getElementById("loading-overlay").style.display = "none";
-      });
+        document.addEventListener("DOMContentLoaded", function () {
+        var loadingOverlay = document.getElementById("loading-overlay");
+        if (loadingOverlay) {
+            loadingOverlay.style.display = "none";
+        }
+      })
+    });
     </script>
   </body>
 </html>

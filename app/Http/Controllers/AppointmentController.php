@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Appointment;
 use App\Models\TimeSlot;
 use App\Models\AppointmentRecord;
-
+use Illuminate\Support\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -37,7 +37,7 @@ class AppointmentController extends Controller
             );            
 
             $form_id = $appointments->id;
-            return view('appointments.create' , compact('userDetails', 'users', 'form_id'));
+            return view('appointments.create' , compact('userDetails', 'users', 'form_id', 'appointments'));
         }
 
         public function store(UpdateProfileRequest $request)
@@ -119,13 +119,16 @@ class AppointmentController extends Controller
             if ($time_slots && $time_slots->form_id == null) {
                 $time_slots->form_id = $userDetails->id;
                 $time_slots->save();
-            }
-            else if ($time_slots->aptDate != null && $time_slots->aptDate == now()->format('Y-m-d')){
+            } elseif ($time_slots->aptDate != null && $time_slots->aptDate == now()->format('Y-m-d')) {
                 $aptDate = $time_slots->aptDate;
-            }
-
-            else {
+            } else {
                 $aptDate = $request->input('aptDate') ?? now()->format('Y-m-d');
+        
+                // Check if the selected date is before the current date
+                if (Carbon::parse($aptDate)->lt(now()->startOfDay())) {
+                    return back()->with('error', 'Invalid date. Please select a date from today onwards.');
+                }
+        
                 $time_slots->aptDate = $aptDate;
                 $time_slots->save();
             }
@@ -257,6 +260,29 @@ class AppointmentController extends Controller
             //     $slot->delete();
             // }
 
+            return redirect()->back()->with('success', 'Slot Canceled.');
+        }
+
+        return redirect()->back()->with('error', 'Unauthorized to cancel this slot.');
+    }
+
+    public function editSlot($id)
+    {
+        $slots = TimeSlot::findOrFail($id);
+        $userDetails = UserDetail::where('user_id', auth()->user()->id)->first();
+        $appointments = Appointment::where('user_id', $userDetails->id)->first();
+
+        $sickness_id = $appointments->id;
+        $sickness = Appointment::findOrFail($sickness_id);
+
+        if ($slots->form_id == $appointments->id) {
+      
+            $slots->selected_date = null;
+            $slots->selected_slot = null;
+            $slots->is_available = false;
+            
+            $slots->save();
+            
             return redirect()->back()->with('success', 'Slot Canceled.');
         }
 
