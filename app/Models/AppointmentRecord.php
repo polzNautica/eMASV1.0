@@ -18,6 +18,7 @@ class AppointmentRecord extends Model
         'selected_date',
         'selected_slot',
         'is_available',
+        'status',
     ];
 
     // Define the relationship with the Userdetail model

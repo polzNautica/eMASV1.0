@@ -12,7 +12,7 @@
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
     <link href="{!! url('assets/css/loading.css') !!}" rel="stylesheet">
-
+    @yield('styles')
     {{-- <link href="{!! url('assets/css/signin.css') !!}" rel="stylesheet"> --}}
 
     <!-- Custom styles for this template -->

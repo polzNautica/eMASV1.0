@@ -96,6 +96,7 @@ active
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Slot</th>
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Appointment Date</th>
                         <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Applied Date</th>
+                        <th class="text-white" style="background-color: rgba(201,35,75,1)" scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>                                       
@@ -132,6 +133,7 @@ active
                             <td>{{ explode('.', $record->selected_slot)[1] ?? '' }}</td>
                             <td>{{\Carbon\Carbon::parse($record->selected_date)->format('Y-m-d') }}</td>
                             <td>{{\Carbon\Carbon::parse($record->created_at)->format('Y-m-d') }}</td>
+                            <td>{{$record->status}}</td>
                         </tr>
                     @empty
                         <tr>
@@ -143,7 +145,5 @@ active
             </div>
         </div>
     </div>
-
-
         @endauth
 @endsection

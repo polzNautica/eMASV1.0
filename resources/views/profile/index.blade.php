@@ -14,22 +14,20 @@
                         <h4 class="mb-0 py-1 text-white">User Information</h4></div>
                         <div class="mb-3 row d-flex justify-content-center mt-3">
                             {{-- <label for="profile_picture" class="form-label col-md-2">Profile Picture</label> --}}
-                            <input type="file" class="form-control col" id="profile_picture" name="profile_picture" style="display: none;">
-                            <label for="profile_picture" class="profile-picture-label col-md-2">
+                            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+                            <input type="file" class="form-control col" id="profile_picture" name="profile_picture" style="display: none;" onchange="previewProfilePicture(this);">
+                            <label for="profile_picture" class="profile-picture-label d-flex justify-content-center">
                                 @if(isset($userDetails->profile_picture) && Storage::disk('public')->exists($userDetails->profile_picture))
-                                    <img src="{{ asset('storage/' . $userDetails->profile_picture) }}" alt="Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;">
+                                    <img src="{{ asset('storage/' . $userDetails->profile_picture) }}" alt="Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;" id="profilePicturePreview">
                                 @else
                                     <!-- Default or placeholder profile picture -->
-                                    <img src="assets/images/emas_profile_picture.png" alt="Default Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;">
+                                    <img src="assets/images/emas_profile_picture.png" alt="Default Profile Picture" class="rounded-circle profile-picture" style="width: 80px; height: 80px;" id="profilePicturePreview">
                                 @endif
                             </label>
                         </div>
                         <div class="card-body px-md-5 px-4">
-                            <form method="POST" action="{{ route('profile.update') }}">
-                                @csrf
-                                @method('put')
-
-                                <!-- Add input fields for user information (e.g., name, email, etc.) -->
                                 <div class="form-group row mb-3">
                                     <label for="full_name" class="form-label col-md-2">Full Name</label>
                                     <input type="text" class="form-control col" id="full_name" name="full_name" value="{{ $userDetails->full_name ?? ''}}">
@@ -104,19 +102,35 @@
         @endauth
     </div>
 
-@section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var profilePictureLabel = document.querySelector('.profile-picture-label');
-        var profilePictureInput = document.getElementById('profile_picture');
+    @section('scripts')
+    <script>
+        function previewProfilePicture(input) {
+            var preview = document.getElementById('profilePicturePreview');
+            var file = input.files[0];
+            var reader = new FileReader();
 
-        if (profilePictureLabel && profilePictureInput) {
-            profilePictureLabel.addEventListener('click', function () {
-                profilePictureInput.click();
-            });
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                // Handle case where no file is selected
+                preview.src = 'assets/images/emas_profile_picture.png'; // Update to the default image
+            }
         }
-    });
-</script>
 
-@endsection
+        document.addEventListener('DOMContentLoaded', function () {
+            var profilePictureLabel = document.querySelector('.profile-picture-label');
+            var profilePictureInput = document.getElementById('profile_picture');
+
+            if (profilePictureLabel && profilePictureInput) {
+                profilePictureLabel.addEventListener('click', function () {
+                    profilePictureInput.click();
+                });
+            }
+        });
+    </script>
+    @endsection
 @endsection

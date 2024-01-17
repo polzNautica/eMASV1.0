@@ -218,18 +218,33 @@ class AppointmentController extends Controller
 
     public function cancelSlot($id)
     {
-        $slot = TimeSlot::findOrFail($id);
+        $slots = TimeSlot::findOrFail($id);
         $userDetails = UserDetail::where('user_id', auth()->user()->id)->first();
         $appointments = Appointment::where('user_id', $userDetails->id)->first();
 
         $sickness_id = $appointments->id;
         $sickness = Appointment::findOrFail($sickness_id);
 
-        if ($slot->form_id == $appointments->id) {
+        if ($slots->form_id == $appointments->id) {
             // $recordCount = TimeSlot::where('form_id', $slot->form_id)->count();
-            
-            $slot->delete();
+
+            $cancel = 'Cancelled';
+           
+            AppointmentRecord::create([
+                'user_id' => $slots->appointments->user_id,
+                'sickness' => $slots->appointments->sickness,
+                'seriousness' => $slots->appointments->seriousness,
+                'specification' => $slots->appointments->specification,
+                'aptDate' => $slots->aptDate,
+                'selected_date' => $slots->selected_date,
+                'selected_slot' => $slots->selected_slot,
+                'is_available' => $slots->is_available,
+                'status' => $cancel,
+            ]);
+      
+            $slots->delete();
             $sickness->delete();
+
             // if ($recordCount == 1) {
             //     // Update the slot to make it available
             //     $slot->update([

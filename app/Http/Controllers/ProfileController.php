@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\UserDetail;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 
     class ProfileController extends Controller
@@ -29,6 +30,7 @@ use App\Models\User;
             $userDetails = UserDetail::updateOrCreate(
                 ['user_id' => $user->id],
                 [
+                    'profile_picture' => $this->storeProfilePicture($request),
                     'full_name' => $request->input('full_name'),
                     'gender' => $request->input('gender'),
                     'date_of_birth' => $request->input('date_of_birth'),
@@ -46,6 +48,30 @@ use App\Models\User;
 
             return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
         }
+
+        protected function storeProfilePicture(Request $request)
+        {
+            if ($request->hasFile('profile_picture')) {
+                $user = auth()->user();
+                $userDetail = $user->userDetails;
+        
+                // Get the old profile picture path
+                $oldProfilePicturePath = $userDetail ? $userDetail->profile_picture : null;
+        
+                // Upload the new profile picture
+                $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+        
+                // Delete the old profile picture if it exists
+                if ($oldProfilePicturePath && Storage::disk('public')->exists($oldProfilePicturePath)) {
+                    Storage::disk('public')->delete($oldProfilePicturePath);
+                }
+        
+                return $profilePicturePath;
+            }
+        
+            return null; // Handle case where no file is uploaded
+        }
+        
 
 
 }

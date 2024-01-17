@@ -14,29 +14,35 @@ class CleanUpAppointments extends Command
 
     public function handle()
     {
+        try {
+            $today = now()->format('Y-m-d');
+            $timeout = "Timeout";
 
-        $today = now()->format('Y-m-d');
+            TimeSlot::whereDate('selected_date', '<', now())->chunk(200, function ($timeSlots) use($timeout) {
+                foreach ($timeSlots as $timeSlot) {
+                    AppointmentRecord::create([
+                        'user_id' => $timeSlot->appointments->user_id,
+                        'sickness' => $timeSlot->appointments->sickness,
+                        'seriousness' => $timeSlot->appointments->seriousness,
+                        'specification' => $timeSlot->appointments->specification,
+                        'aptDate' => $timeSlot->aptDate,
+                        'selected_date' => $timeSlot->selected_date,
+                        'selected_slot' => $timeSlot->selected_slot,
+                        'is_available' => $timeSlot->is_available,
+                        'status' => $timeout,
+                    ]);
+                }
 
-        TimeSlot::whereDate('created_at', '<', $today)->chunk(200, function ($timeSlots) {
-            foreach ($timeSlots as $timeSlot) {
-                AppointmentRecord::create([
-                    'user_id' => $timeSlot->appointments->user_id,
-                    'sickness' => $timeSlot->appointments->sickness,
-                    'seriousness' => $timeSlot->appointments->seriousness,
-                    'specification' => $timeSlot->appointments->specification,
-                    'aptDate' => $timeSlot->aptDate,
-                    'selected_date' => $timeSlot->selected_date,
-                    'selected_slot' => $timeSlot->selected_slot,
-                    'is_available' => $timeSlot->is_available,
-                ]);
-            }
-        });
+                TimeSlot::whereDate('selected_date', '<', now())->delete();
+                Appointment::whereIn('id', $timeSlots->pluck('form_id'))->delete();
 
-        // Delete old appointments and time slots
-        Appointment::whereDate('created_at', '<', $today)->delete();
-        TimeSlot::whereDate('created_at', '<', $today)->delete();
+            });
 
-        $this->info('Cleaned up old appointments and time slots.');
+            $this->info('Cleaned up old appointments and time slots.');
+        } catch (\Exception $e) {
+            $this->error('An error occurred: ' . $e->getMessage());
+        }
     }
+
 }
 

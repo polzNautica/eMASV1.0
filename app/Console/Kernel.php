@@ -18,7 +18,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         //$schedule->command('inspire')->hourly();
-        //$schedule->command('appointments:cleanup')->dailyAt('00:00');
+        $schedule->command('appointments:cleanup')->everyMinute();
+
+        if ($this->app->environment('local')) {
+            $schedule->exec('php artisan schedule:run')->everyMinute();
+        }
     }
 
     /**

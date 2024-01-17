@@ -49,6 +49,11 @@
     <script src="{!! url('assets/js/popper.min.js') !!}"></script>
     <script src="{!! url('assets/bootstrap/js/bootstrap.min.js') !!}"></script>
     @yield('scripts')
-      
+    <script>
+      window.addEventListener("load", function () {
+        // Hide the loading overlay when the page is fully loaded
+        document.getElementById("loading-overlay").style.display = "none";
+      });
+    </script>
   </body>
 </html>
